@@ -34,10 +34,10 @@ spring:
         min-idle: 0
     password: 12345678
 
-  data:
-    mongodb:
-      uri: mongodb://192.168.135.62:27017
-      database: fcs
+#  data:
+#    mongodb:
+#      uri: mongodb://192.168.135.62:27017
+#      database: fcs
 
   # activemq
   activemq:
