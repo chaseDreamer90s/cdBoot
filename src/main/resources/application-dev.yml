@@ -1,0 +1,106 @@
+server:
+  port: 8082
+
+spring:
+  # mysql,druid
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    platform: mysql
+    url: jdbc:mysql://127.0.0.1:3306/tcdp?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: 12345678
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT1FROMDUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    filters: stat,wall,slf4j
+    logSlowSql: true
+
+  # redis
+  redis:
+    host: 127.0.0.1
+    database: 0
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+    password:
+
+  data:
+    mongodb:
+      uri: mongodb://192.168.135.62:27017
+      database: fcs
+
+  # activemq
+  activemq:
+#    broker-url: failover:(tcp://${mqtt.ip.master}:${mqtt.port.master},tcp://${mqtt.ip.node1}:${mqtt.port.node1},tcp://${mqtt.ip.node2}:${mqtt.port.node2})
+    broker-url: tcp://${mqtt.ip.master}:${mqtt.port.master}
+    user: admin
+    password: admin
+    pool:
+      enabled: true
+      max-connections: 500
+      idle-timeout: 30000
+#      expiry-timeout: 10000
+
+  #kafka配置
+  kafka:
+    bootstrap-servers: 192.168.135.68:9092,192.168.135.62:9092,192.168.135.63:9092
+#    consumer:
+#      group-id: 0
+#      auto-offset-reset: earliest
+#      # 如果为true，消费者的偏移量将在后台定期提交。
+#      enable-auto-commit: true
+#      # 自动提交周期
+#      auto-commit-interval: 100
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#    producer:
+#      # 发送失败重试次数。
+#      retries: 0
+#      # 每次批量发送消息的数量 批处理条数：当多个记录被发送到同一个分区时，生产者会尝试将记录合并到更少的请求中。这有助于客户端和服务器的性能。
+##      batch-size: 65536
+#      # 批处理缓冲区。
+##      buffer-memory: 524288
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      #ack 0 1 all
+#      acks: 1
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+#mybatis配置
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  # type-aliases-package: com.dixn.dxboot.mybatis.model
+
+mqtt:
+  ip:
+    master: 127.0.0.1
+  port:
+    master: 61616
+
+#接收tcdp的queuereceive.queue
+receive_queue: queueControlGaoLingDeviceCtrlFcs1
+  #发送tcdp的queue
+send_queue: business.queue
+  #应答消息queue
+response_queue: reply.queue
+
+alarm_queue_cron: 0/20 * * * * ?
+
+swagger:
+  enabled: true
+
+tcp:
+  port: 8087

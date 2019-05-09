@@ -1,0 +1,74 @@
+server:
+  port: 8081
+
+spring:
+  # mysql,druid
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    platform: mysql
+    url: jdbc:mysql://192.168.135.63:3306/TCDP?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT1FROMDUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    filters: stat,wall,slf4j
+    logSlowSql: true
+
+  # redis
+  redis:
+    host: 192.168.135.68
+    database: 0
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+    password: 12345678
+
+  data:
+    mongodb:
+      uri: mongodb://192.168.135.62:27017
+      database: fcs
+
+  # activemq
+  activemq:
+    broker-url: failover:(tcp://${mqtt.ip.master}:${mqtt.port.master},tcp://${mqtt.ip.node1}:${mqtt.port.node1},tcp://${mqtt.ip.node2}:${mqtt.port.node2})
+    user: admin
+    password: admin
+    pool:
+      enabled: true
+      max-connections: 500
+      idle-timeout: 30000
+#      expiry-timeout: 10000
+
+
+mqtt:
+  ip:
+    master: 127.0.0.1
+  port:
+    master: 61616
+
+#接收tcdp的queuereceive.queue
+receive_queue: queueControlGaoLingDeviceCtrlFcs1
+#发送tcdp的queue
+send_queue: business.queue
+#应答消息queue
+response_queue: reply.queue
+
+alarm_queue_cron: 0/20 * * * * ?
+
+swagger:
+  enabled: true
+
+
+tcp:
+  port: 8087

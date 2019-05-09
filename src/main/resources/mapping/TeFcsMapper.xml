@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dixn.dxboot.mybatis.mapper.TeFcsMapper" >
+  <resultMap id="BaseResultMap" type="com.dixn.dxboot.mybatis.model.TeFcs" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="id_tunnel" property="idTunnel" jdbcType="VARCHAR" />
+    <result column="ip_fcs" property="ipFcs" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, id_tunnel, ip_fcs, del_flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from te_fcs
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from te_fcs
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.dixn.dxboot.mybatis.model.TeFcs" >
+    insert into te_fcs (id, id_tunnel, ip_fcs, 
+      del_flag)
+    values (#{id,jdbcType=VARCHAR}, #{idTunnel,jdbcType=VARCHAR}, #{ipFcs,jdbcType=VARCHAR}, 
+      #{delFlag,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dixn.dxboot.mybatis.model.TeFcs" >
+    insert into te_fcs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="idTunnel != null" >
+        id_tunnel,
+      </if>
+      <if test="ipFcs != null" >
+        ip_fcs,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="idTunnel != null" >
+        #{idTunnel,jdbcType=VARCHAR},
+      </if>
+      <if test="ipFcs != null" >
+        #{ipFcs,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dixn.dxboot.mybatis.model.TeFcs" >
+    update te_fcs
+    <set >
+      <if test="idTunnel != null" >
+        id_tunnel = #{idTunnel,jdbcType=VARCHAR},
+      </if>
+      <if test="ipFcs != null" >
+        ip_fcs = #{ipFcs,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dixn.dxboot.mybatis.model.TeFcs" >
+    update te_fcs
+    set id_tunnel = #{idTunnel,jdbcType=VARCHAR},
+      ip_fcs = #{ipFcs,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
