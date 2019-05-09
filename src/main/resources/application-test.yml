@@ -34,11 +34,6 @@ spring:
         min-idle: 0
     password: 12345678
 
-#  data:
-#    mongodb:
-#      uri: mongodb://192.168.135.62:27017
-#      database: fcs
-
   # activemq
   activemq:
     broker-url: failover:(tcp://${mqtt.ip.master}:${mqtt.port.master},tcp://${mqtt.ip.node1}:${mqtt.port.node1},tcp://${mqtt.ip.node2}:${mqtt.port.node2})
