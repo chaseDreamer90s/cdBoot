@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
-import org.springframework.kafka.core.KafkaTemplate;
+//import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 /**
@@ -32,7 +32,7 @@ public class StartUp implements ApplicationRunner {
     String tcpPort;
 
     @Autowired
-    KafkaTemplate kafkaTemplate;
+//    KafkaTemplate kafkaTemplate;
 
 	@Override
 	public void run(ApplicationArguments var1) throws Exception {
